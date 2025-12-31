@@ -26,7 +26,7 @@ Negative values for `--download-num` fetch all available `.tif` slides for the s
 - `CLAM/`: Upstream CLAM repository (unchanged, still used for patch extraction).
 - `main.py`: Reference CLI that ties the pipeline and dataloader pieces together.
 
-Add new datasets by dropping a module under `pathology_foundation_model/datasets/`, decorating the class with `@register_dataset("my_dataset")`, and passing `--dataset my_dataset` to `main.py`.
+Add new datasets by dropping a module under `src/datasets/`, decorating the class with `@register_dataset("my_dataset")`, and passing `--dataset my_dataset` to `main.py`.
 
 ## Distributed & Multi-Dataset DataLoader
 
@@ -55,7 +55,7 @@ Remember to call `dataloader.sampler.set_epoch(epoch)` inside your training loop
 Pass overrides through the CLI flags in `main.py` or instantiate `PipelineConfig` directly if you embed the package.
 
 ```python
-from pathology_foundation_model import PipelineConfig, setup_pipeline
+from src import PipelineConfig, setup_pipeline
 
 cfg = PipelineConfig(cache_root="/data/cache", patch_size=512)
 result = setup_pipeline("CAMELYON16/images/", download_num=5, config=cfg)
@@ -82,7 +82,7 @@ sudo apt-get install -y openslide-tools
 After running the pipeline, import and instantiate the dataloader inside your training script:
 
 ```python
-from pathology_foundation_model import create_dataloader
+from src import create_dataloader
 
 dataset_kwargs = {
     "wsi_dir": "/abs/path/to/cache/health/camelyon-dataset/CAMELYON16/images",
